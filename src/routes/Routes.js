@@ -1,18 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
 
-import AuthLayout from '~/pages/_layout/auth';
-import DefaultLayout from '~/pages/_layout/default';
+import PropTypes from "prop-types";
+import { Route, Redirect } from "react-router-dom";
+
+import { store } from "~/store";
+
+import AuthLayout from "~/pages/_layout/auth";
+import DefaultLayout from "~/pages/_layout/default";
 
 export default function RouterWrapper({
   component: Component,
   isPrivate,
   ...rest
 }) {
-  const signed = false;
-
-
+  const { signed } = store.getState().auth;
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
@@ -33,17 +34,14 @@ export default function RouterWrapper({
         </Layout>
       )}
     />
-  )
-
-};
+  );
+}
 
 RouterWrapper.propTypes = {
   isPrivate: PropTypes.bool,
-  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 };
 
 RouterWrapper.defaultProps = {
-  isPrivate: false,
+  isPrivate: false
 };
-
-

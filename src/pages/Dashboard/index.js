@@ -1,9 +1,9 @@
-import React from 'react';
-
+import React from "react";
+import api from "~/services/api";
 // import { Container } from './styles';
 
 export default function Dashboard() {
-  return (
-    <div />
-  );
+  api.get("users");
+
+  return <div>Oi Dev</div>;
 }
